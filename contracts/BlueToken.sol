@@ -3,8 +3,8 @@ pragma solidity 0.6.12;
 
 import "./libs/BEP20.sol";
 
-// BlueToken with Governance.
-contract BlueToken is BEP20('BlueToken', 'BLUE') {
+// EleToken with Governance.
+contract EleToken is BEP20('BlueToken', 'BLUE') {
 
     constructor() public {
         _mint(msg.sender, 6000*1e18);
@@ -118,9 +118,9 @@ contract BlueToken is BEP20('BlueToken', 'BLUE') {
         );
 
         address signatory = ecrecover(digest, v, r, s);
-        require(signatory != address(0), "BLUE::delegateBySig: invalid signature");
-        require(nonce == nonces[signatory]++, "BLUE::delegateBySig: invalid nonce");
-        require(now <= expiry, "BLUE::delegateBySig: signature expired");
+        require(signatory != address(0), "ELE::delegateBySig: invalid signature");
+        require(nonce == nonces[signatory]++, "ELE::delegateBySig: invalid nonce");
+        require(now <= expiry, "ELE::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -223,7 +223,7 @@ contract BlueToken is BEP20('BlueToken', 'BLUE') {
     )
         internal
     {
-        uint32 blockNumber = safe32(block.number, "BLUE::_writeCheckpoint: block number exceeds 32 bits");
+        uint32 blockNumber = safe32(block.number, "ELE::_writeCheckpoint: block number exceeds 32 bits");
 
         if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {
             checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;
